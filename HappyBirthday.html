@@ -24,6 +24,7 @@
             text-align: center;
             max-width: 400px;
             width: 100%;
+            position: relative;
         }
 
         h1 {
@@ -77,6 +78,12 @@
             min-height: 40px;
         }
 
+        #countdown {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #555;
+        }
+
         footer {
             margin-top: 30px;
             font-size: 0.9em;
@@ -94,6 +101,15 @@
                 transform: translateY(-10px);
             }
         }
+
+        /* Confetti animation */
+        .confetti {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -104,16 +120,18 @@
         <input type="text" id="name" placeholder="Your Name">
         <br><br>
         <button onclick="displayMessage()">Get Birthday Wish</button>
-
+        
         <p id="message"></p>
 
+        <!-- Countdown Timer -->
+        <div id="countdown">
+            🎂 Birthday Countdown: <span id="timer">Loading...</span>
+        </div>
+
+        <!-- Fun Fact -->
         <div class="more-things">
-            <p>More things to do:</p>
-            <ul>
-                <li>Share with friends</li>
-                <li>Make a wish</li>
-                <li>Enjoy cake</li>
-            </ul>
+            <button onclick="showFunFact()">Get a Fun Birthday Fact!</button>
+            <p id="funFact"></p>
         </div>
 
         <footer>
@@ -121,15 +139,78 @@
         </footer>
     </div>
 
+    <!-- Confetti Canvas -->
+    <canvas class="confetti"></canvas>
+
     <script>
+        // Display Birthday Message
         function displayMessage() {
             const name = document.getElementById('name').value;
             const message = document.getElementById('message');
             if (name) {
                 message.innerHTML = `🎂 Happy Birthday, <strong>${name}</strong>! 🎉 Wishing you an amazing day full of joy!`;
+                startConfetti();
             } else {
                 message.innerHTML = '🎈 Please enter your name to receive your birthday message!';
             }
+        }
+
+        // Birthday Countdown Timer
+        function startCountdown() {
+            const nextBirthday = new Date();
+            nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+            nextBirthday.setHours(0, 0, 0, 0);
+            function updateCountdown() {
+                const now = new Date();
+                const timeLeft = nextBirthday - now;
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                document.getElementById('timer').textContent = `${days} days until your next birthday!`;
+            }
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+        startCountdown();
+
+        // Fun Birthday Facts
+        const facts = [
+            "Did you know? You share your birthday with over 9 million people!",
+            "A birthday cake is said to bring good luck!",
+            "The first birthday cake was originally just bread!",
+            "In the past, birthday candles were used to ward off evil spirits."
+        ];
+
+        function showFunFact() {
+            const randomFact = facts[Math.floor(Math.random() * facts.length)];
+            document.getElementById('funFact').textContent = randomFact;
+        }
+
+        // Confetti Animation
+        function startConfetti() {
+            const canvas = document.querySelector('.confetti');
+            const context = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const confettiCount = 100;
+            const confetti = Array.from({ length: confettiCount }, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height - canvas.height,
+                speed: Math.random() * 3 + 2,
+                color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+                size: Math.random() * 5 + 2
+            }));
+
+            function drawConfetti() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                confetti.forEach(particle => {
+                    context.fillStyle = particle.color;
+                    context.fillRect(particle.x, particle.y, particle.size, particle.size);
+                    particle.y += particle.speed;
+                    if (particle.y > canvas.height) particle.y = 0;
+                });
+                requestAnimationFrame(drawConfetti);
+            }
+            drawConfetti();
         }
     </script>
 
