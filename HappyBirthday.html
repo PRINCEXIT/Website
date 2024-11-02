@@ -13,6 +13,7 @@
             justify-content: center;
             align-items: center;
             background: linear-gradient(135deg, #f06d7d, #f9a26c);
+            background-image: url('https://www.transparenttextures.com/patterns/white-linen.png');
         }
 
         .container {
@@ -76,6 +77,18 @@
             min-height: 40px;
         }
 
+        footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .more-things {
+            margin-top: 20px;
+            font-size: 1em;
+            color: #555;
+        }
+
         @keyframes bounce {
             to {
                 transform: translateY(-10px);
@@ -93,6 +106,19 @@
         <button onclick="displayMessage()">Get Birthday Wish</button>
 
         <p id="message"></p>
+
+        <div class="more-things">
+            <p>More things to do:</p>
+            <ul>
+                <li>Share with friends</li>
+                <li>Make a wish</li>
+                <li>Enjoy cake</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>Developed By PRINCE</p>
+        </footer>
     </div>
 
     <script>
@@ -108,4 +134,4 @@
     </script>
 
 </body>
-  </html>
+</html>
