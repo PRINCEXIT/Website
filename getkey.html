@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Tasks to Get Your Key</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Body Styling */
+        body {
+            background: linear-gradient(135deg, #4CAF50, #00ACC1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        /* Container */
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        /* Header */
+        header h1 {
+            font-size: 26px;
+            color: #333;
+            margin-bottom: 20px;
+            animation: slideDown 0.5s ease;
+        }
+
+        /* Task List Styling */
+        #taskList .task-item {
+            margin: 15px 0;
+            text-align: left;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f8f8;
+            transition: background-color 0.3s;
+        }
+        
+        #taskList .task-item:hover {
+            background-color: #e8f5e9;
+        }
+
+        /* Task Label */
+        .task-item label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Task Input */
+        input[type="checkbox"],
+        input[type="text"],
+        input[type="number"] {
+            margin-top: 10px;
+            padding: 8px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="checkbox"] {
+            width: auto;
+            cursor: pointer;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #4CAF50;
+        }
+
+        /* Key Display */
+        .key-container {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #4CAF50;
+            background-color: #e8f5e9;
+            padding: 10px;
+            border-radius: 8px;
+            animation: fadeIn 1s ease;
+        }
+
+        /* Button */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        button:enabled:hover {
+            background-color: #388E3C;
+            transform: scale(1.05);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Complete Tasks to Get Your Key</h1>
+        </header>
+        <main>
+            <section id="taskList">
+                <h2 style="color: #333; margin-bottom: 10px;">Tasks</h2>
+                <div class="task-item">
+                    <label>
+                        Task 1: Answer the question - What is 5 + 3?
+                        <input type="number" id="answerTask" placeholder="Enter answer">
+                    </label>
+                </div>
+                <div class="task-item">
+                    <label>
+                        Task 2: Enter a code - Type "SECRET" below
+                        <input type="text" id="textTask" placeholder="Enter code">
+                    </label>
+                </div>
+                <div class="task-item">
+                    <label>
+                        Task 3: Confirm - Check the box if you shared this with a friend
+                        <input type="checkbox" id="confirmTask">
+                    </label>
+                </div>
+            </section>
+            <button id="getKeyButton" disabled>Get Key</button>
+            <div class="key-container" id="keyContainer">
+                Your Key: <span id="key">prince</span>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const answerTask = document.getElementById('answerTask');
+        const textTask = document.getElementById('textTask');
+        const confirmTask = document.getElementById('confirmTask');
+        const getKeyButton = document.getElementById('getKeyButton');
+        const keyContainer = document.getElementById('keyContainer');
+
+        // Function to check if all tasks are completed
+        function checkTasks() {
+            const isAnswerCorrect = answerTask.value == 8;  // Task 1: Answer must be 8
+            const isTextCorrect = textTask.value.toUpperCase() === "SECRET";  // Task 2: Text must be "SECRET"
+            const isConfirmed = confirmTask.checked;  // Task 3: Checkbox must be checked
+
+            getKeyButton.disabled = !(isAnswerCorrect && isTextCorrect && isConfirmed);
+        }
+
+        // Event listeners for each task input
+        answerTask.addEventListener('input', checkTasks);
+        textTask.addEventListener('input', checkTasks);
+        confirmTask.addEventListener('change', checkTasks);
+
+        // Show the key when the button is clicked
+        getKeyButton.addEventListener('click', () => {
+            keyContainer.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
