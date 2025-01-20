@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Fire Player Stats - By LK-TEAM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #0f0c29;
+            background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .search-section {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #ff4757;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff6b81;
+        }
+
+        .player-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .player-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .avatar-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #ff4757;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .weapons-section {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .weapon-img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .error {
+            color: #ff4757;
+            text-align: center;
+            margin: 20px 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="search-section">
+            <h1>Free Fire Player Stats</h1>
+            <div>
+                <input type="text" id="uid" placeholder="Enter UID">
+                <input type="text" id="region" placeholder="Enter Region">
+                <button onclick="fetchPlayerStats()">Search</button>
+            </div>
+        </div>
+
+        <div id="loading" class="loading">Loading...</div>
+        <div id="error" class="error"></div>
+        <div id="playerStats"></div>
+
+        <div class="footer">
+            <p>Created by LK-TEAM | API Credit: PRINCE-LK</p>
+        </div>
+    </div>
+
+    <script>
+        async function fetchPlayerStats() {
+            const uid = document.getElementById('uid').value;
+            const region = document.getElementById('region').value;
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const playerStats = document.getElementById('playerStats');
+
+            if (!uid || !region) {
+                error.style.display = 'block';
+                error.textContent = 'Please enter both UID and Region';
+                return;
+            }
+
+            loading.style.display = 'block';
+            error.style.display = 'none';
+            playerStats.innerHTML = '';
+
+            try {
+                const response = await fetch(`https://freefireinfoapiv2lk-team.vercel.app/api/playerstats?uid=${uid}&region=${region}&api_key=PRINCE-1-M-FREE`);
+                const data = await response.json();
+
+                if (data.data) {
+                    const accountInfo = data.data.AccountInfo;
+                    const guildInfo = data.data.GuildInfo;
+                    const socialInfo = data.data.socialinfo;
+
+                    playerStats.innerHTML = `
+                        <div class="player-card">
+                            <div class="player-header">
+                                <img src="${accountInfo.AvatarImage}" alt="Avatar" class="avatar-image">
+                                <div>
+                                    <h2>${accountInfo.AccountName}</h2>
+                                    <p>Level ${accountInfo.AccountLevel}</p>
+                                </div>
+                            </div>
+
+                            <div class="stats-grid">
+                                <div class="stat-box">
+                                    <h3>Battle Royale</h3>
+                                    <p>Rank: ${accountInfo.BrMaxRank}</p>
+                                    <p>Points: ${accountInfo.BrRankPoint}</p>
+                                </div>
+                                <div class="stat-box">
+                                    <h3>Clash Squad</h3>
+                                    <p>Rank: ${accountInfo.CsMaxRank}</p>
+                                    <p>Points: ${accountInfo.CsRankPoint}</p>
+                                </div>
+                                <div class="stat-box">
+                                    <h3>Guild Info</h3>
+                                    <p>Name: ${guildInfo.GuildName}</p>
+                                    <p>Level: ${guildInfo.GuildLevel}</p>
+                                </div>
+                            </div>
+
+                            <h3>Equipped Weapons</h3>
+                            <div class="weapons-section">
+                                ${accountInfo.EquippedWeaponImages.map(weapon => 
+                                    `<img src="${weapon}" alt="Weapon" class="weapon-img">`
+                                ).join('')}
+                            </div>
+
+                            <div class="stat-box">
+                                <h3>Social Info</h3>
+                                <p>${socialInfo.AccountSignature}</p>
+                                <p>Language: ${socialInfo.AccountLanguage}</p>
+                                <p>Preferred Mode: ${socialInfo.AccountPreferMode}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                error.style.display = 'block';
+                error.textContent = 'Error fetching player stats. Please try again.';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
