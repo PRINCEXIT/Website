@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>FF API Docs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #ff4d4d;
+      --secondary-color: #ff8533;
+      --accent-color: #ffd633;
+      --dark-color: #2d2d2d;
+      --light-color: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #1a1a1a;
+      color: var(--light-color);
+      line-height: 1.4;
+      font-size: 14px;
+    }
+
+    header {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      padding: 15px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+    }
+
+    .header-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    nav {
+      background: #2d2d2d;
+      padding: 10px;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-links {
+      display: inline-flex;
+      gap: 15px;
+      list-style: none;
+      padding: 0 10px;
+    }
+
+    .nav-links a {
+      color: var(--light-color);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 5px 10px;
+      border-radius: 15px;
+      white-space: nowrap;
+    }
+
+    .nav-links a.active {
+      background: var(--primary-color);
+    }
+
+    .container {
+      padding: 15px;
+    }
+
+    .card {
+      background: #2d2d2d;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      color: var(--accent-color);
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    pre {
+      background: #1a1a1a;
+      padding: 10px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.8rem;
+      margin: 10px 0;
+    }
+
+    code {
+      color: var(--accent-color);
+      background: rgba(255,255,255,0.1);
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+
+    .endpoint {
+      background: var(--primary-color);
+      padding: 10px;
+      border-radius: 8px;
+      margin: 10px 0;
+      font-size: 0.8rem;
+      word-break: break-all;
+    }
+
+    .parameter-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+
+    .parameter-table th,
+    .parameter-table td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .parameter-table th {
+      background: rgba(255,255,255,0.1);
+      color: var(--accent-color);
+    }
+
+    .copy-button {
+      background: var(--primary-color);
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      margin-top: 5px;
+      width: 100%;
+    }
+
+    footer {
+      background: #2d2d2d;
+      padding: 15px;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+
+    .social-links {
+      margin-top: 10px;
+    }
+
+    .social-links a {
+      color: var(--light-color);
+      margin: 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .response-example {
+      position: relative;
+      margin: 10px 0;
+    }
+
+    .mt-1 { margin-top: 10px; }
+    .mb-1 { margin-bottom: 10px; }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>Free Fire API V2</h1>
+    <p class="header-subtitle">Player Stats Documentation</p>
+  </header>
+
+  <nav>
+    <ul class="nav-links">
+      <li><a href="#overview" class="active">Overview</a></li>
+      <li><a href="#auth">Auth</a></li>
+      <li><a href="#endpoints">Endpoints</a></li>
+      <li><a href="#params">Params</a></li>
+      <li><a href="#response">Response</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <section id="overview" class="card">
+      <h2><i class="fas fa-info-circle"></i> Overview</h2>
+      <p>Get detailed Free Fire player statistics with our API V2.</p>
+    </section>
+
+    <section id="auth" class="card">
+      <h2><i class="fas fa-key"></i> Authentication</h2>
+      <p>API Key required for all requests:</p>
+      <div class="endpoint">
+        PRINCE-PERM-KEY
+        <button class="copy-button" onclick="copyApiKey()">
+          <i class="fas fa-copy"></i> Copy Key
+        </button>
+      </div>
+    </section>
+
+    <section id="endpoints" class="card">
+      <h2><i class="fas fa-link"></i> Endpoint</h2>
+      <div class="endpoint">
+        https://freefireinfoapiv2lk-team.vercel.app/api/playerstats
+        <button class="copy-button" onclick="copyEndpoint()">
+          <i class="fas fa-copy"></i> Copy URL
+        </button>
+      </div>
+    </section>
+
+    <section id="params" class="card">
+      <h2><i class="fas fa-list"></i> Parameters</h2>
+      <table class="parameter-table">
+        <tr>
+          <th>Param</th>
+          <th>Type</th>
+          <th>Required</th>
+        </tr>
+        <tr>
+          <td>uid</td>
+          <td>string</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>region</td>
+          <td>string</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>api_key</td>
+          <td>string</td>
+          <td>Yes</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="response" class="card">
+      <h2><i class="fas fa-code"></i> Example Request</h2>
+      <div class="response-example">
+        <pre>https://freefireinfoapiv2lk-team.vercel.app/api/playerstats?uid=9999999942&region=vn&api_key=PRINCE-PERM-KEY</pre>
+        <button class="copy-button" onclick="copyExample()">
+          <i class="fas fa-copy"></i> Copy Request
+        </button>
+      </div>
+
+      <h2 class="mt-1"><i class="fas fa-reply"></i> Example Response</h2>
+      <pre>
+{
+  "7M1u7jHRoC": "API BY PRINCE-LK",
+  "AccountInfo": {
+    "AccountBPBadges": 108,
+    "AccountBPID": 1001000080,
+    "AccountCreateTime": 1729746901,
+    "AccountEXP": 231371,
+    "AccountLastLogin": 1737089602,
+    "AccountLevel": 47,
+    "AccountLikes": 9184,
+    "AccountName": "✿ＧＲＩＮＧＯ.４４４♰",
+    "AccountRegion": "VN",
+    "AccountSeasonId": 43,
+    "AccountType": 1,
+    "BrMaxRank": 224,
+    "BrRankPoint": 5908,
+    "CsMaxRank": 221,
+    "CsRankPoint": 153,
+    "EquippedWeapon": [
+      {
+        "Iyq8SYXvs7": "API BY PRINCE-LK",
+        "Up2EP8p8uR": "API BY PRINCE-LK"
+      },
+      907136017
+    ],
+    "EquippedWeaponImages": [
+      "https://ff-community-api.vercel.app/icons?id={'Up2EP8p8uR': 'API BY PRINCE-LK', 'Iyq8SYXvs7': 'API BY PRINCE-LK'}",
+      "https://ff-community-api.vercel.app/icons?id=907136017"
+    ],
+    "ReleaseVersion": "OB47",
+    "ShowBrRank": true,
+    "ShowCsRank": true,
+    "Title": 904590059,
+    "hasElitePass": true,
+    "sOXeWEEI3x": "API BY PRINCE-LK"
+  },
+  "AccountProfileInfo": {
+    "EquippedOutfit": [
+      204000108,
+      205000093,
+      {
+        "Up2EP8p8uR": "API BY PRINCE-LK",
+        "uzbnOKuqhw": "API BY PRINCE-LK"
+      },
+      203000178,
+      211047004
+    ],
+    "EquippedOutfitImages": [
+      "https://ff-community-api.vercel.app/icons?id=204000108",
+      "https://ff-community-api.vercel.app/icons?id=205000093",
+      "https://ff-community-api.vercel.app/icons?id={'Up2EP8p8uR': 'API BY PRINCE-LK', 'uzbnOKuqhw': 'API BY PRINCE-LK'}",
+      "https://ff-community-api.vercel.app/icons?id=203000178",
+      "https://ff-community-api.vercel.app/icons?id=211047004"
+    ],
+    "EquippedSkills": [
+      16,
+      2506,
+      8,
+      1,
+      {
+        "59OBYQqdhi": "API BY PRINCE-LK",
+        "Up2EP8p8uR": "API BY PRINCE-LK"
+      },
+      16,
+      5206,
+      8,
+      2,
+      16,
+      4806,
+      8,
+      3,
+      16,
+      7206
+    ],
+    "EquippedSkillsImages": [
+      "https://i.postimg.cc/BnpRPsjv/Kelly-The-Swift.png",
+      "https://freefiremobile-a.akamaihd.net/common/web_event/official2.ff.garena.all/img/20228/e21eb41a3705ff817156dd5758157274.png",
+      "https://i.postimg.cc/FznQS4Wc/Moco-Rebirth.png",
+      "https://dl.dir.freefiremobile.com/common/web_event/official2.ff.garena.all/202412/b2f635a96ed787a8e540031402ea751b.png"
+    ],
+    "Z2Kqo3RL62": "API BY PRINCE-LK"
+  },
+  "GuildInfo": {
+    "GuildCapacity": 30,
+    "GuildID": "3069599815",
+    "GuildLevel": 3,
+    "GuildMember": 30,
+    "GuildName": "♰７９•ＥＳＰＯＲＴＳ",
+    "GuildOwner": "9999999942",
+    "z6EbpjEgS3": "API BY PRINCE-LK"
+  },
+  "captainBasicInfo": {
+    "EquippedWeapon": [
+      {
+        "TSIb9TcD4t": "API BY PRINCE-LK",
+        "Up2EP8p8uR": "API BY PRINCE-LK"
+      },
+      907136017
+    ],
+    "S3yyMhSUGo": "API BY PRINCE-LK",
+    "accountId": "9999999942",
+    "accountType": 1,
+    "badgeCnt": 108,
+    "badgeId": "1001000080",
+    "createAt": "1729746901",
+    "csMaxRank": 221,
+    "csRank": 221,
+    "csRankingPoints": 153,
+    "exp": 231371,
+    "lastLoginAt": "1737089602",
+    "level": 47,
+    "liked": 9184,
+    "maxRank": 224,
+    "nickname": "✿ＧＲＩＮＧＯ.４４４♰",
+    "rank": 224,
+    "rankingPoints": 5908,
+    "region": "VN",
+    "releaseVersion": "OB47",
+    "seasonId": 43,
+    "showBrRank": true,
+    "showCsRank": true,
+    "title": 904590059
+  },
+  "creditScoreInfo": {
+    "creditScore": 100,
+    "periodicSummaryEndTime": "1738060388",
+    "periodicSummaryStartTime": "1737801188",
+    "qGv1IT5JmK": "API BY PRINCE-LK",
+    "rewardState": 1
+  },
+  "petInfo": {
+    "XJKeRh0Cei": "API BY PRINCE-LK",
+    "exp": 540,
+    "id": 1300000112,
+    "isSelected": true,
+    "level": 4,
+    "selectedSkillId": 1315000011,
+    "skinId": 1310000122
+  },
+  "socialinfo": {
+    "3QbvA3Pzu0": "API BY PRINCE-LK",
+    "AccountLanguage": "Language_Vietnamese",
+    "AccountSignature": "[b][c][00FF00]T[00EE00]i[00DD00]k[00CC00]T[00BB00]o[00AA00]k[009900]:  [FFFF00]@[FFCC00]g[FF9900]r[FF6600]i[FF3300]n[FF0000]g[FF0000]o[FF0000].[AAF000]m[AAF000]o[AAF000]d[AAF000]z[AAF000]z [FFFF00]Ⓥ[AAFF00]"
+  }
+}</pre>
+
+      <h2 class="mt-1"><i class="fas fa-code"></i> Python Example</h2>
+      <div class="response-example">
+        <pre id="python-code">
+import requests
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+from rich.tree import Tree
+from rich.text import Text
+from rich.layout import Layout
+from rich.style import Style
+from rich import box
+from datetime import datetime
+from rich.prompt import Prompt
+from rich.progress import Progress, SpinnerColumn, TextColumn
+
+console = Console()
+
+def get_player_stats(uid, region="sg", api_key="PRINCE-PERM-KEY"):
+    url = f"https://freefireinfoapiv2lk-team.vercel.app/api/playerstats"
+    params = {
+        "uid": uid,
+        "region": region.lower(),
+        "api_key": api_key
+    }
+    
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        console.print(f"[red]Error fetching data: {str(e)}[/red]")
+        return None
+
+def format_timestamp(timestamp):
+    try:
+        return datetime.fromtimestamp(int(timestamp)).strftime('%Y-%m-%d %H:%M:%S')
+    except:
+        return "N/A"
+
+def create_stats_table(title, data, columns):
+    table = Table(title=title, box=box.ROUNDED, style="cyan", title_style="bold magenta")
+    for col in columns:
+        table.add_column(col[0], style=col[1])
+    for row in data:
+        table.add_row(*[str(item) for item in row])
+    return table
+
+def display_player_info(data):
+    layout = Layout()
+    layout.split_column(
+        Layout(name="header"),
+        Layout(name="main", ratio=3),
+        Layout(name="footer")
+    )
+    
+    # Header with Player Basic Info
+    account_info = data.get("AccountInfo", {})
+    header_panel = Panel(
+        f"""[bold cyan]Player:[/bold cyan] {account_info.get('AccountName')}  |  [bold cyan]UID:[/bold cyan] {data.get('GuildInfo', {}).get('GuildOwner')}
+[bold cyan]Level:[/bold cyan] {account_info.get('AccountLevel')}  |  [bold cyan]Region:[/bold cyan] {account_info.get('AccountRegion')}  |  [bold cyan]Release Version:[/bold cyan] {account_info.get('ReleaseVersion')}""",
+        style="bold white on blue",
+        title="🎮 Free Fire Player Profile",
+        box=box.DOUBLE
+    )
+    layout["header"].update(header_panel)
+
+    main_tree = Tree("[bold green]Detailed Information")
+
+    account_panel = Panel(
+        f"""[bold yellow]Experience:[/bold yellow] {account_info.get('AccountEXP'):,}
+[bold yellow]Account Created:[/bold yellow] {format_timestamp(account_info.get('AccountCreateTime'))}
+[bold yellow]Last Login:[/bold yellow] {format_timestamp(account_info.get('AccountLastLogin'))}
+[bold yellow]Likes:[/bold yellow] {account_info.get('AccountLikes'):,}
+[bold yellow]Battle Royale Rank:[/bold yellow] {account_info.get('BrMaxRank')} (Points: {account_info.get('BrRankPoint'):,})
+[bold yellow]Clash Squad Rank:[/bold yellow] {account_info.get('CsMaxRank')} (Points: {account_info.get('CsRankPoint'):,})
+[bold yellow]Elite Pass Status:[/bold yellow] {'✅ Active' if account_info.get('hasElitePass') else '❌ Inactive'}""",
+        title="📊 Account Statistics",
+        box=box.ROUNDED
+    )
+    main_tree.add(account_panel)
+
+    guild_info = data.get("GuildInfo", {})
+    guild_panel = Panel(
+        f"""[bold green]Guild Name:[/bold green] {guild_info.get('GuildName')}
+[bold green]Guild ID:[/bold green] {guild_info.get('GuildID')}
+[bold green]Guild Level:[/bold green] {guild_info.get('GuildLevel')}
+[bold green]Members:[/bold green] {guild_info.get('GuildMember')}/{guild_info.get('GuildCapacity')}
+[bold green]Guild Owner:[/bold green] {guild_info.get('GuildOwner')}""",
+        title="🏰 Guild Information",
+        box=box.ROUNDED
+    )
+    main_tree.add(guild_panel)
+
+    layout["main"].update(main_tree)
+    footer_text = Text("Data retrieved at: " + datetime.now().strftime('%Y-%m-%d %H:%M:%S'), style="italic cyan")
+    layout["footer"].update(Panel(footer_text, box=box.ROUNDED))
+    console.print(layout)
+
+def main():
+    while True:
+        uid = Prompt.ask("[bold cyan]Enter player UID[/bold cyan]")
+        region = Prompt.ask(
+            "[bold cyan]Enter region code[/bold cyan]",
+            choices=["sg", "in", "br", "id", "th", "vn", "ru", "me", "pk", "bd"],
+            default="sg"
+        )
+
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            transient=True,
+        ) as progress:
+            progress.add_task(description="Fetching player data...", total=None)
+            player_data = get_player_stats(uid, region)
+
+        if player_data:
+            display_player_info(player_data)
+            if not Prompt.ask("\n[yellow]Check another player?[/yellow]", choices=["y", "n"], default="y") == "y":
+                break
+        else:
+            console.print("[red]Failed to fetch player data[/red]")
+            if not Prompt.ask("\n[yellow]Try again?[/yellow]", choices=["y", "n"], default="y") == "y":
+                break
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        console.print("\n[yellow]Exiting...[/yellow]")
+    except Exception as e:
+        console.print(f"\n[red]Error: {str(e)}[/red]")</pre>
+        <button class="copy-button" onclick="copyPythonExample()">
+          <i class="fas fa-copy"></i> Copy Code
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>© 2025 Free Fire Info API V2</p>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-discord"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    function copyApiKey() {
+      navigator.clipboard.writeText("PRINCE-PERM-KEY");
+      showCopiedMessage(event);
+    }
+
+    function copyEndpoint() {
+      navigator.clipboard.writeText("https://freefireinfoapiv2lk-team.vercel.app/api/playerstats");
+      showCopiedMessage(event);
+    }
+
+    function copyExample() {
+      navigator.clipboard.writeText("https://freefireinfoapiv2lk-team.vercel.app/api/playerstats?uid=9999999942&region=vn&api_key=PRINCE-PERM-KEY");
+      showCopiedMessage(event);
+    }
+
+    function copyPythonExample() {
+      const pythonCode = document.getElementById('python-code').innerText;
+      navigator.clipboard.writeText(pythonCode);
+      showCopiedMessage(event);
+    }
+
+    function showCopiedMessage(event) {
+      const button = event.target.closest('button');
+      const originalText = button.innerHTML;
+      button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+      setTimeout(() => {
+        button.innerHTML = originalText;
+      }, 2000);
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', function() {
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
