@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LK-HOST - Legal Documents</title>
+    <style>
+        :root {
+            --primary: #1e88e5;
+            --primary-dark: #1565c0;
+            --primary-light: #42a5f5;
+            --secondary: #f5f5f5;
+            --text: #333;
+            --text-light: #757575;
+            --white: #ffffff;
+            --border: #e0e0e0;
+            --success: #4caf50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .logo {
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--white);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: var(--white);
+        }
+        
+        .nav-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            background: var(--white);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            border: none;
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
+        .nav-tab:hover {
+            background: var(--secondary);
+        }
+        
+        .nav-tab.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .tab-content {
+            display: none;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+        }
+        
+        .action-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(30, 136, 229, 0.3);
+        }
+        
+        .action-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(30, 136, 229, 0.4);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+        }
+        
+        .back-to-top:hover {
+            background: var(--primary-dark);
+        }
+        
+        .summary-card {
+            background: #f5f9ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px 15px;
+                border-radius: 8px;
+            }
+            
+            .logo {
+                font-size: 2.2rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .nav-tab {
+                padding: 12px 5px;
+                font-size: 0.9rem;
+            }
+            
+            .tab-content {
+                padding: 20px 15px;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+        }
+        
+        .accordion-btn {
+            background: var(--secondary);
+            color: var(--text);
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: 0.4s;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-btn:hover {
+            background-color: #e9e9e9;
+        }
+
+        .accordion-btn:after {
+            content: '+';
+            color: var(--primary);
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+            font-size: 1.5rem;
+        }
+
+        .accordion-btn.active:after {
+            content: '-';
+        }
+
+        .accordion-panel {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            margin-bottom: 10px;
+        }
+        
+        .active-panel {
+            max-height: 1000px;
+            padding: 15px;
+            background: #fafafa;
+            border-radius: 0 0 8px 8px;
+            border: 1px solid var(--border);
+            border-top: none;
+        }
+        
+        .print-btn {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .print-btn:hover {
+            background: var(--primary-light);
+            color: var(--white);
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .accept-btn {
+            background: var(--success);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        
+        .accept-btn:hover {
+            background: #388e3c;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">LK-HOST</div>
+            <h1>Legal Documents</h1>
+            <p>Last updated: April 18, 2025</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="openTab('welcome')">Welcome</button>
+            <button class="nav-tab" onclick="openTab('terms')">Terms of Service</button>
+            <button class="nav-tab" onclick="openTab('privacy')">Privacy Policy</button>
+        </div>
+        
+        <!-- Welcome Tab -->
+        <div id="welcome" class="tab-content active">
+            <div class="section">
+                <h2>Welcome to LK-HOST</h2>
+                <p>Thank you for choosing LK-HOST for your Telegram bot hosting needs. Before you begin using our services, please take a moment to review our legal documents.</p>
+                
+                <div class="summary-card">
+                    <h3>What We Offer</h3>
+                    <p>LK-HOST provides reliable, secure hosting for your Telegram bots with professional management tools and monitoring services.</p>
+                </div>
+                
+                <h3>Quick Summary</h3>
+                <ul>
+                    <li><span class="highlight">Terms of Service</span> - Outlines rules and guidelines for using our platform</li>
+                    <li><span class="highlight">Privacy Policy</span> - Details how we collect, use, and protect your information</li>
+                </ul>
+                
+                <p>Please review both documents carefully before using our services. By accessing or using LK-HOST, you agree to be bound by these policies.</p>
+                
+                <div class="buttons-container">
+                    <button class="action-btn" onclick="openTab('terms')">Read Terms of Service</button>
+                    <button class="action-btn" onclick="openTab('privacy')">Read Privacy Policy</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Terms of Service Tab -->
+        <div id="terms" class="tab-content">
+            <div class="section">
+                <h2>Terms of Service</h2>
+                
+                <button class="accordion-btn">1. Acceptance of Terms</button>
+                <div class="accordion-panel">
+                    <p>By accessing and using LK-HOST's bot hosting services, you agree to be bound by these Terms of Service ("Terms"). If you disagree with any part of these terms, you may not use our service.</p>
+                </div>
+                
+                <button class="accordion-btn">2. Service Description</button>
+                <div class="accordion-panel">
+                    <p>LK-HOST provides Telegram bot hosting services. We offer users the ability to upload, host, and manage their Telegram bots through our platform.</p>
+                </div>
+                
+                <button class="accordion-btn">3. User Responsibilities</button>
+                <div class="accordion-panel">
+                    <ul>
+                        <li>You must provide accurate information when registering</li>
+                        <li>You are responsible for maintaining the security of your account</li>
+                        <li>You must not use the service for any illegal purposes</li>
+                        <li>You must not upload malicious code or attempt to harm our systems</li>
+                    </ul>
+                </div>
+                
+                <button class="accordion-btn">4. Service Limitations</button>
+                <div class="accordion-panel">
+                    <ul>
+                        <li>We reserve the right to terminate accounts that violate our terms</li>
+                        <li>Service availability and performance are provided "as is"</li>
+                        <li>We may modify or discontinue services at any time</li>
+                    </ul>
+                </div>
+                
+                <button class="accordion-btn">5. Content Policy</button>
+                <div class="accordion-panel">
+                    <p>Users are prohibited from hosting bots that:</p>
+                    <ul>
+                        <li>Violate Telegram's Terms of Service</li>
+                        <li>Contain malicious code or spam</li>
+                        <li>Infringe on intellectual property rights</li>
+                        <li>Engage in illegal activities</li>
+                    </ul>
+                </div>    
+                
+                <div class="buttons-container">
+                    <button class="action-btn" onclick="openTab('privacy')">View Privacy Policy</button>
+                    <button class="print-btn" onclick="window.print()">Print Terms</button>
+                    <button class="accept-btn" onclick="acceptTerms()">Accept Terms</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Privacy Policy Tab -->
+        <div id="privacy" class="tab-content">
+            <div class="section">
+                <h2>Privacy Policy</h2>
+                
+                <button class="accordion-btn">1. Information We Collect</button>
+                <div class="accordion-panel">
+                    <p>We collect the following information:</p>
+                    <ul>
+                        <li>Telegram User ID and Username</li>
+                        <li>Bot files and configurations</li>
+                        <li>Usage statistics and logs</li>
+                        <li>System performance data</li>
+                    </ul>
+                </div>
+                
+                <button class="accordion-btn">2. How We Use Your Information</button>
+                <div class="accordion-panel">
+                    <p>We use collected information to:</p>
+                    <ul>
+                        <li>Provide and maintain our services</li>
+                        <li>Monitor and improve system performance</li>
+                        <li>Communicate with users about service updates</li>
+                        <li>Enforce our Terms of Service</li>
+                    </ul>
+                </div>
+                
+                <button class="accordion-btn">3. Data Security</button>
+                <div class="accordion-panel">
+                    <p>We implement security measures to protect your information:</p>
+                    <ul>
+                        <li>Secure file storage systems</li>
+                        <li>Regular security audits</li>
+                        <li>Access control and monitoring</li>
+                        <li>Encrypted data transmission</li>
+                    </ul>
+                </div>
+                
+                <button class="accordion-btn">4. Data Retention</button>
+                <div class="accordion-panel">
+                    <p>We retain your data for as long as your account is active. Upon account deletion, we will remove all associated data within 30 days.</p>
+                </div>
+                
+                <button class="accordion-btn">5. Your Rights</button>
+                <div class="accordion-panel">
+                    <p>You have the right to:</p>
+                    <ul>
+                        <li>Access your personal data</li>
+                        <li>Request data deletion</li>
+                        <li>Export your data</li>
+                        <li>Modify your information</li>
+                    </ul>
+                </div>
+                
+                <div class="buttons-container">
+                    <button class="action-btn" onclick="openTab('terms')">View Terms of Service</button>
+                    <button class="print-btn" onclick="window.print()">Print Policy</button>
+                    <button class="accept-btn" onclick="acceptPolicy()">Accept Policy</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Contact us: <a href="https://t.me/lkteammm" style="color: var(--primary);">https://t.me/lkteammm</a></p>
+            <p>© 2025 LK-TEAM. All rights reserved.</p>
+        </div>
+        
+        <div class="back-to-top" onclick="scrollToTop()">↑</div>
+    </div>
+
+    <script>
+        // Tab functionality
+        function openTab(tabName) {
+            const tabs = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            
+            const navTabs = document.getElementsByClassName("nav-tab");
+            for (let i = 0; i < navTabs.length; i++) {
+                navTabs[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            document.querySelector(`.nav-tab[onclick="openTab('${tabName}')"]`).classList.add("active");
+            
+            // Scroll to top when changing tabs
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
+        // Accordion functionality
+        const accordions = document.getElementsByClassName("accordion-btn");
+        for (let i = 0; i < accordions.length; i++) {
+            accordions[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                const panel = this.nextElementSibling;
+                panel.classList.toggle("active-panel");
+                
+                if (panel.classList.contains("active-panel")) {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                } else {
+                    panel.style.maxHeight = "0";
+                }
+            });
+        }
+        
+        // Back to top button
+        window.onscroll = function() {
+            const backToTop = document.querySelector('.back-to-top');
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        };
+        
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Accept buttons functionality
+        function acceptTerms() {
+            alert("You have accepted the Terms of Service!");
+            // Add your actual acceptance logic here
+        }
+        
+        function acceptPolicy() {
+            alert("You have accepted the Privacy Policy!");
+            // Add your actual acceptance logic here
+        }
+        
+        // Open all accordions when printing
+        window.onbeforeprint = function() {
+            const panels = document.getElementsByClassName("accordion-panel");
+            for (let i = 0; i < panels.length; i++) {
+                panels[i].classList.add("active-panel");
+                panels[i].style.maxHeight = "none";
+            }
+        };
+        
+        window.onafterprint = function() {
+            const panels = document.getElementsByClassName("accordion-panel");
+            for (let i = 0; i < panels.length; i++) {
+                if (!panels[i].previousElementSibling.classList.contains("active")) {
+                    panels[i].classList.remove("active-panel");
+                    panels[i].style.maxHeight = "0";
+                }
+            }
+        };
+    </script>
+</body>
+</html>
