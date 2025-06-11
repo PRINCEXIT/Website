@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You - LK-TEAM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1a1a2e, #16213e);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+      color: #ffffff;
+      overflow-x: hidden;
+      position: relative;
+      transform: translateZ(0); /* Hardware acceleration */
+      will-change: auto;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Optimized floating particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      transform: translateZ(0);
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #00d9ff;
+      border-radius: 50%;
+      animation: float 4s infinite ease-in-out;
+      opacity: 0.6;
+      will-change: transform;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0.6; }
+      50% { transform: translate3d(0, -15px, 0) rotate(180deg); opacity: 1; }
+    }
+
+    /* Hero section */
+    .hero {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .love-message {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 800;
+      background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d9de0, #e15759, #ff6b6b);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: rainbowText 3s ease-in-out infinite, pulse 2s ease-in-out infinite;
+      margin-bottom: 40px;
+      text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+      will-change: transform;
+    }
+
+    @keyframes rainbowText {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale3d(1, 1, 1); }
+      50% { transform: scale3d(1.05, 1.05, 1); }
+    }
+
+    .main-container {
+      max-width: 900px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 50px;
+      border-radius: 30px;
+      box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      animation: containerGlow 4s ease-in-out infinite;
+      transform: translateZ(0);
+    }
+
+    @keyframes containerGlow {
+      0%, 100% { box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 217, 255, 0.2); }
+      50% { box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 217, 255, 0.4); }
+    }
+
+    .main-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(0, 217, 255, 0.03), transparent);
+      animation: shimmer 6s linear infinite;
+      will-change: transform;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translate3d(-100%, -100%, 0) rotate(45deg); }
+      100% { transform: translate3d(100%, 100%, 0) rotate(45deg); }
+    }
+
+    .main-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #00d9ff, #ffcc70);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titleBounce 3s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+      will-change: transform;
+    }
+
+    @keyframes titleBounce {
+      0%, 100% { transform: translate3d(0, 0, 0); }
+      50% { transform: translate3d(0, -10px, 0); }
+    }
+
+    .content {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.8;
+      text-align: left;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translate3d(0, 30px, 0); }
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+
+    .content p {
+      margin-bottom: 20px;
+      animation: textReveal 2s ease-out forwards;
+      opacity: 0;
+    }
+
+    .content p:nth-child(1) { animation-delay: 0.5s; }
+    .content p:nth-child(2) { animation-delay: 1s; }
+    .content p:nth-child(3) { animation-delay: 1.5s; }
+    .content p:nth-child(4) { animation-delay: 2s; }
+    .content p:nth-child(5) { animation-delay: 2.5s; }
+    .content p:nth-child(6) { animation-delay: 3s; }
+
+    @keyframes textReveal {
+      to { opacity: 1; }
+    }
+
+    .highlight {
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      animation: highlightGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes highlightGlow {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.3); }
+    }
+
+    .emoji {
+      display: inline-block;
+      animation: emojiDance 2s ease-in-out infinite;
+      font-size: 1.3em;
+      will-change: transform;
+    }
+
+    @keyframes emojiDance {
+      0%, 100% { transform: rotate(0deg) scale3d(1, 1, 1); }
+      25% { transform: rotate(-10deg) scale3d(1.1, 1.1, 1); }
+      75% { transform: rotate(10deg) scale3d(1.1, 1.1, 1); }
+    }
+
+    .signature {
+      margin-top: 40px;
+      font-weight: 800;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      background: linear-gradient(135deg, #ffcc70, #ff6b6b, #4ecdc4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+      animation: signaturePulse 3s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+      will-change: transform;
+    }
+
+    @keyframes signaturePulse {
+      0%, 100% { transform: scale3d(1, 1, 1) rotate(0deg); }
+      50% { transform: scale3d(1.05, 1.05, 1) rotate(1deg); }
+    }
+
+    /* Team stats */
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin: 40px 0;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      min-width: 120px;
+      animation: statFloat 3s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .stat:nth-child(1) { animation-delay: 0s; }
+    .stat:nth-child(2) { animation-delay: 0.5s; }
+    .stat:nth-child(3) { animation-delay: 1s; }
+
+    @keyframes statFloat {
+      0%, 100% { transform: translate3d(0, 0, 0); }
+      50% { transform: translate3d(0, -10px, 0); }
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #00d9ff;
+      display: block;
+      animation: numberCount 2s ease-out;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #ffcc70;
+      margin-top: 5px;
+    }
+
+    /* Interactive Buttons */
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .message-btn {
+      background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+      border: none;
+      padding: 15px 25px;
+      border-radius: 25px;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      transform: translateZ(0);
+      will-change: transform;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .message-btn:hover {
+      transform: translate3d(0, -3px, 0) scale3d(1.05, 1.05, 1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .message-btn:active {
+      transform: translate3d(0, -1px, 0) scale3d(0.98, 0.98, 1);
+    }
+
+    /* Message overlay */
+    .message-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .message-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .message-content {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 600px;
+      text-align: center;
+      transform: scale3d(0.8, 0.8, 1);
+      transition: transform 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .message-overlay.active .message-content {
+      transform: scale3d(1, 1, 1);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    .close-btn:hover {
+      opacity: 1;
+    }
+
+    /* Optimized floating hearts */
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      transform: translateZ(0);
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff6b6b;
+      font-size: 18px;
+      animation: heartFloat 6s linear infinite;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    @keyframes heartFloat {
+      0% { 
+        transform: translate3d(0, 100vh, 0) rotate(0deg);
+        opacity: 0;
+      }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { 
+        transform: translate3d(0, -100px, 0) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Thank you message - optimized */
+    .thank-you-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900;
+      background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d9de0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      z-index: 999;
+      animation: thankYouAppear 12s ease-in-out infinite;
+      opacity: 0;
+      pointer-events: none;
+      text-align: center;
+      text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+      will-change: opacity, transform;
+    }
+
+    @keyframes thankYouAppear {
+      0%, 85%, 100% { opacity: 0; transform: translate(-50%, -50%) scale3d(0.5, 0.5, 1); }
+      90%, 95% { opacity: 1; transform: translate(-50%, -50%) scale3d(1, 1, 1); }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .main-container {
+        padding: 30px 20px;
+        margin: 20px;
+      }
+      
+      .stats {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .stat {
+        width: 80%;
+        max-width: 200px;
+      }
+
+      .button-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .message-btn {
+        width: 80%;
+        max-width: 250px;
+      }
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(45deg, #00d9ff, #ffcc70);
+      border-radius: 4px;
+    }
+
+    /* Performance optimizations */
+    .particle, .heart, .emoji, .love-message, .main-title, .signature {
+      backface-visibility: hidden;
+      perspective: 1000px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+  
+  <!-- Floating hearts -->
+  <div class="hearts" id="hearts"></div>
+  
+  <!-- Thank you message overlay -->
+  <div class="thank-you-message">
+    THANK YOU<br>LK-TEAM FAMILY! 💙
+  </div>
+
+  <!-- Message overlays -->
+  <div class="message-overlay" id="messageOverlay">
+    <div class="message-content">
+      <button class="close-btn" onclick="closeMessage()">&times;</button>
+      <div id="messageText"></div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="love-message">
+      LK-TEAM LOVES YOU ALL ✨💙🔥
+    </div>
+    
+    <div class="main-container">
+      <h1 class="main-title">
+        <span class="emoji">💙💫</span> A Message from the Heart – THANK YOU <span class="emoji">💫💙</span>
+      </h1>
+      
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-number">20</span>
+          <div class="stat-label">Started With</div>
+        </div>
+        <div class="stat">
+          <span class="stat-number">424</span>
+          <div class="stat-label">Strong Now</div>
+        </div>
+        <div class="stat">
+          <span class="stat-number">∞</span>
+          <div class="stat-label">Love & Impact</div>
+        </div>
+      </div>
+
+      <!-- Interactive Buttons -->
+      <div class="button-container">
+        <button class="message-btn" onclick="showMessage('inspiration')">
+          💪 Our Journey
+        </button>
+        <button class="message-btn" onclick="showMessage('family')">
+          👨‍👩‍👧‍👦 LK Family
+        </button>
+        <button class="message-btn" onclick="showMessage('future')">
+          🚀 What's Next
+        </button>
+        <button class="message-btn" onclick="showMessage('gratitude')">
+          🙏 Deep Gratitude
+        </button>
+        <button class="message-btn" onclick="showMessage('legacy')">
+          ✨ Our Legacy
+        </button>
+        <button class="message-btn" onclick="showMessage('love')">
+          💙 Pure Love
+        </button>
+      </div>
+      
+      <div class="content">
+        <p>Hey family...<br><br>
+        I just wanna take a moment to say something that's been on my mind for a while now. We started this team from nothing... just a vision, a passion, and a tight group of about <span class="highlight">20 people</span> who believed in something more. Back then, it was just a name, a hope... a spark. <span class="emoji">🔥</span></p>
+        
+        <p>Now? We're <span class="highlight">424 strong</span>. <span class="emoji">💪</span> It might not sound huge to some, but to me... it's <span class="highlight">everything</span>. Every single one of you matters. You didn't just join a group—you became part of a story, part of <span class="highlight">LK-TEAM</span>. And for that, I'm endlessly grateful. <span class="emoji">🙏❤️</span></p>
+        
+        <p>There were times I wasn't sure this would work. Doubts, slow days, setbacks… but y'all stayed. You supported, you believed, and you made it real.</p>
+        
+        <p><span class="highlight">You turned a small dream into a living, breathing family.</span> <span class="emoji">🫂💭</span></p>
+        
+        <p>We didn't just grow in numbers. We <span class="highlight">inspired others</span>. Other groups saw us and said "Yo, we can do it too." That means <span class="highlight">we left a mark</span>. That's legacy. That's impact. That's <span class="highlight">LOVE</span>. <span class="emoji">💖✨</span></p>
+        
+        <p>Whether you joined on day one or just yesterday… You're a part of this. And we're not done. Not even close. <span class="emoji">🚀</span> More growth. More memories. More everything. <span class="highlight">Together</span>. <span class="emoji">💯</span></p>
+        
+        <p>From the bottom of my heart…<br>
+        <span class="highlight">THANK YOU.</span><br>
+        For being here.<br>
+        For being you.<br>
+        For being <span class="highlight">LK-TEAM</span>. <span class="emoji">💙🔥</span></p>
+      </div>
+      
+      <div class="signature">With love, always – LK-TEAM <span class="emoji">💫</span></div>
+    </div>
+  </div>
+
+  <script>
+    // Performance optimized particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      for (let i = 0; i < 30; i++) { // Reduced from 50 to 30
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 4 + 's';
+        particle.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Optimized floating hearts with throttling
+    let heartCount = 0;
+    const maxHearts = 8;
+    function createHearts() {
+      const heartsContainer = document.getElementById('hearts');
+      setInterval(() => {
+        if (heartCount < maxHearts) {
+          const heart = document.createElement('div');
+          heart.className = 'heart';
+          heart.innerHTML = ['💙', '❤️', '💜', '🧡'][Math.floor(Math.random() * 4)];
+          heart.style.left = Math.random() * 100 + '%';
+          heart.style.animationDuration = (Math.random() * 2 + 4) + 's';
+          heartsContainer.appendChild(heart);
+          heartCount++;
+          
+          setTimeout(() => {
+            heart.remove();
+            heartCount--;
+          }, 6000);
+        }
+      }, 1500); // Increased interval
+    }
+
+    // Animate numbers counting up
+    function animateNumbers() {
+      const numbers = document.querySelectorAll('.stat-number');
+      numbers.forEach((num, index) => {
+        if (num.textContent !== '∞') {
+          const target = parseInt(num.textContent);
+          let current = 0;
+          const increment = target / 30; // Reduced iterations
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              current = target;
+              clearInterval(timer);
+            }
+            num.textContent = Math.floor(current);
+          }, 60);
+        }
+      });
+    }
+
+    // Message system
+    const messages = {
+      inspiration: {
+        title: "💪 Our Incredible Journey",
+        content: "Every step we took together made us stronger. From those late-night brainstorming sessions to celebrating every small win - we built something beautiful. You believed when others doubted. You stayed when others left. That's the LK-TEAM spirit! 🔥✨"
+      },
+      family: {
+        title: "👨‍👩‍👧‍👦 The LK Family Bond",
+        content: "We're not just a team - we're family. Through good times and challenges, we've got each other's backs. Every member brings something special to our table. Your energy, your ideas, your presence - it all matters. We rise together! 🫂💙"
+      },
+      future: {
+        title: "🚀 What's Next for LK-TEAM",
+        content: "The future is so bright for us! We're just getting started. More projects, more impact, more memories to create together. I see us reaching 1000 members, inspiring countless others, and changing lives. The best is yet to come! 🌟💫"
+      },
+      gratitude: {
+        title: "🙏 Deep Gratitude from My Heart",
+        content: "Some nights I can't sleep thinking about how blessed I am to have you all. You turned my wildest dreams into reality. Every share, every support, every moment you chose LK-TEAM over everything else - it means the world to me. THANK YOU! 💖🙏"
+      },
+      legacy: {
+        title: "✨ The Legacy We're Building",
+        content: "Years from now, people will talk about what we built here. They'll say 'Remember LK-TEAM? They showed us what real community looks like.' We're not just making content - we're making history. Every post, every interaction, every moment of love - it's our legacy! 🏆👑"
+      },
+      love: {
+        title: "💙 Pure Love for LK-TEAM",
+        content: "I love y'all so much it hurts sometimes. The way you support each other, lift each other up, celebrate wins together - it's pure magic. You've given me a purpose, a family, a reason to wake up excited every day. LK-TEAM FOREVER! 💙🔥💯"
+      }
+    };
+
+    function showMessage(type) {
+      const overlay = document.getElementById('messageOverlay');
+      const messageText = document.getElementById('messageText');
+      const message = messages[type];
+      
+      messageText.innerHTML = `
+        <h2 style="font-size: 2rem; margin-bottom: 20px; background: linear-gradient(45deg, #ff6b6b, #4ecdc4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">${message.title}</h2>
+        <p style="font-size: 1.2rem; line-height: 1.6;">${message.content}</p>
+      `;
+      
+      overlay.classList.add('active');
+    }
+
+    function closeMessage() {
+      const overlay = document.getElementById('messageOverlay');
+      overlay.classList.remove('active');
+    }
+
+    // Close message on background click
+    document.getElementById('messageOverlay').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeMessage();
+      }
+    });
+
+    // Initialize with performance optimizations
+    document.addEventListener('DOMContentLoaded', () => {
+      // Use requestAnimationFrame for smooth initialization
+      requestAnimationFrame(() => {
+        createParticles();
+        createHearts();
+        setTimeout(animateNumbers, 1000);
+      });
+    });
+
+    // Reduce animations on low-end devices
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
+      document.body.style.setProperty('--reduced-motion', '1');
+    }
+  </script>
+</body>
+</html>
