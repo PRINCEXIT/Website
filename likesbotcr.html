@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Likes Bot for Telegram - Full Guide</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1a3a4a);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  color: #fff;
+  padding: 20px;
+  max-width: 900px;
+  margin: auto;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating particles */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(0, 255, 213, 0.3);
+  border-radius: 50%;
+  animation: float 20s linear infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+h1 {
+  color: #00ffd5;
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 30px;
+  text-shadow: 0 0 20px rgba(0, 255, 213, 0.5);
+  animation: pulse 2s ease-in-out infinite alternate;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes pulse {
+  from { text-shadow: 0 0 20px rgba(0, 255, 213, 0.5); }
+  to { text-shadow: 0 0 30px rgba(0, 255, 213, 0.8), 0 0 40px rgba(0, 255, 213, 0.3); }
+}
+
+h2 {
+  color: #00d9ff;
+  margin: 30px 0 15px 0;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  position: relative;
+  padding-left: 15px;
+}
+
+h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #00ffd5, #00d9ff);
+  border-radius: 2px;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from { height: 0; }
+  to { height: 100%; }
+}
+
+.section {
+  margin-bottom: 35px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(0, 255, 213, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transform: translateY(20px);
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ffd5, transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.section:nth-child(even) {
+  animation-delay: 0.1s;
+}
+
+.section:nth-child(odd) {
+  animation-delay: 0.2s;
+}
+
+.section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 255, 213, 0.2);
+  border-color: rgba(0, 255, 213, 0.3);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+a {
+  color: #00ffcc;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00ffcc, #00ffd5);
+  transition: width 0.3s ease;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+a:hover {
+  color: #00ffd5;
+  text-shadow: 0 0 10px rgba(0, 255, 213, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 25px;
+  background: linear-gradient(45deg, #00ffd5, #00d9ff);
+  color: #000;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 255, 213, 0.3);
+  position: relative;
+  overflow: hidden;
+  margin: 10px 5px;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 255, 213, 0.5);
+  color: #000;
+}
+
+.btn:active {
+  transform: translateY(-1px);
+}
+
+code {
+  background: linear-gradient(135deg, #1e2a38, #2a3f54);
+  color: #00ffaa;
+  padding: 6px 12px;
+  border-radius: 8px;
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  border: 1px solid rgba(0, 255, 170, 0.2);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  margin: 2px;
+}
+
+code:hover {
+  background: linear-gradient(135deg, #2a3f54, #1e2a38);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 255, 170, 0.3);
+}
+
+ol, ul {
+  padding-left: 25px;
+  margin: 15px 0;
+}
+
+li {
+  margin: 10px 0;
+  padding: 5px 0;
+  transition: all 0.3s ease;
+}
+
+li:hover {
+  color: #00ffd5;
+  transform: translateX(5px);
+}
+
+.note {
+  background: linear-gradient(135deg, rgba(0, 255, 213, 0.1), rgba(0, 217, 255, 0.1));
+  padding: 20px;
+  border-left: 4px solid #00ffd5;
+  border-radius: 0 15px 15px 0;
+  margin-top: 30px;
+  position: relative;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 255, 213, 0.2);
+  animation: noteGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes noteGlow {
+  from { box-shadow: 0 4px 20px rgba(0, 255, 213, 0.2); }
+  to { box-shadow: 0 4px 30px rgba(0, 255, 213, 0.4); }
+}
+
+.note::before {
+  content: '💡';
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  background: linear-gradient(135deg, #0f2027, #203a43);
+  padding: 5px 10px;
+  border-radius: 50%;
+  font-size: 1.2em;
+  border: 2px solid #00ffd5;
+}
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, #00ffd5, #00d9ff, #00ffcc);
+  z-index: 1000;
+  transition: width 0.1s ease;
+}
+
+.emoji-decoration {
+  font-size: 1.5em;
+  display: inline-block;
+  animation: bounce 2s ease-in-out infinite;
+  margin: 0 5px;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+.step-number {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #00ffd5, #00d9ff);
+  color: #000;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 50%;
+  font-weight: bold;
+  margin-right: 10px;
+  box-shadow: 0 2px 10px rgba(0, 255, 213, 0.3);
+  animation: stepPulse 2s ease-in-out infinite;
+}
+
+@keyframes stepPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.floating-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #00ffd5, #00d9ff);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-size: 1.5em;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(0, 255, 213, 0.4);
+  transition: all 0.3s ease;
+  z-index: 100;
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+
+@keyframes floatUpDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.floating-btn:hover {
+  transform: scale(1.1) translateY(-5px);
+  box-shadow: 0 6px 30px rgba(0, 255, 213, 0.6);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+  
+  .section {
+    padding: 20px 15px;
+    margin-bottom: 25px;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  .btn {
+    display: block;
+    text-align: center;
+    margin: 15px 0;
+  }
+  
+  .floating-btn {
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    right: 20px;
+    font-size: 1.2em;
+  }
+  
+  code {
+    font-size: 0.9em;
+    padding: 4px 8px;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="particles" id="particles"></div>
+
+<h1><span class="emoji-decoration">🚀</span> How to Create a Likes Bot for Telegram <span class="emoji-decoration">🤖</span></h1>
+
+<div class="section">
+  <h2><span class="step-number">1</span> 📁 Download the Bot Files</h2>
+  <p>Get the ready-to-use Python files from our official Telegram channel:</p>
+  <a href="https://t.me/lkteammm" target="_blank" class="btn">
+    <span class="emoji-decoration">👉</span> Join @lkteammm Channel
+  </a>
+</div>
+
+<div class="section">
+  <h2><span class="step-number">2</span> 🤖 Create Your Telegram Bot</h2>
+  <ol>
+    <li>Open Telegram and go to <a href="https://t.me/BotFather" target="_blank">@BotFather</a></li>
+    <li>Send the command <code>/newbot</code></li>
+    <li>Choose a unique name and username for your bot</li>
+    <li>Copy the <strong>BOT TOKEN</strong> that BotFather provides</li>
+  </ol>
+  <div style="margin-top: 15px;">
+    <a href="https://t.me/BotFather" target="_blank" class="btn">
+      🤖 Open BotFather
+    </a>
+  </div>
+</div>
+
+<div class="section">
+  <h2><span class="step-number">3</span> 🛠 Set Up Your Admins</h2>
+  <p>Open the downloaded <code>.py</code> file and look for:</p>
+  <code>ADMIN_IDS = [123456789]</code>
+  <p>Replace the number with your Telegram ID. Don't know your ID? Get it here:</p>
+  <a href="https://t.me/userinfobot" target="_blank" class="btn">
+    📋 Get My Telegram ID
+  </a>
+  <p style="margin-top: 15px;">To add multiple admins:</p>
+  <code>ADMIN_IDS = [123456789, 987654321, 555666777]</code>
+</div>
+
+<div class="section">
+  <h2><span class="step-number">4</span> 📲 Install Python Environment</h2>
+  <p><strong>For Android Users:</strong></p>
+  <p>Install <strong>Pydroid 3</strong> - the best Python IDE for mobile:</p>
+  <a href="https://play.google.com/store/apps/details?id=ru.iiec.pydroid3" target="_blank" class="btn">
+    📱 Download Pydroid 3
+  </a>
+  
+  <p style="margin-top: 20px;"><strong>For PC Users:</strong></p>
+  <p>Download and install Python, then use any code editor:</p>
+  <a href="https://www.python.org/downloads/" target="_blank" class="btn">
+    💻 Download Python
+  </a>
+  <a href="https://code.visualstudio.com/" target="_blank" class="btn">
+    📝 Download VS Code
+  </a>
+</div>
+
+<div class="section">
+  <h2><span class="step-number">5</span> 📦 Install Required Libraries</h2>
+  <p>In Pydroid 3, open the <strong>pip</strong> tab or use terminal and install:</p>
+  <code>pip install pyTelegramBotAPI</code>
+  <p style="margin-top: 15px;">Additional libraries you might need:</p>
+  <code>pip install requests</code>
+  <code>pip install asyncio</code>
+  <p>Check the script for imports like:</p>
+  <code>import telebot</code>
+  <code>import requests</code>
+</div>
+
+<div class="section">
+  <h2><span class="step-number">6</span> ⚙️ Configure Your Bot</h2>
+  <p>Before running, make sure to:</p>
+  <ul>
+    <li>Add your BOT TOKEN to the script</li>
+    <li>Set your ADMIN_IDS correctly</li>
+    <li>Configure any custom settings</li>
+    <li>Test the bot token with BotFather</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2><span class="step-number">7</span> ▶️ Run the Bot</h2>
+  <p>Open the Python file in your editor and run:</p>
+  <code>python yourfilename.py</code>
+  <p>You should see a success message like:</p>
+  <code style="color: #00ff88;">✅ Bot is running successfully...</code>
+  <p style="margin-top: 15px;">Keep the script running to maintain bot functionality!</p>
+</div>
+
+<div class="section">
+  <h2><span class="step-number">8</span> 🎉 Test Your Bot</h2>
+  <p>Go to Telegram and:</p>
+  <ol>
+    <li>Search for your bot by username</li>
+    <li>Send <code>/start</code> command</li>
+    <li>Try the available commands</li>
+    <li>Test like functionality with your configured settings</li>
+  </ol>
+</div>
+
+<div class="note">
+  <strong>🔐 Security Notice:</strong> Never share your bot token publicly or commit it to version control.<br>
+  <strong>💡 Pro Tip:</strong> Use environment variables to store sensitive data.<br>
+  <strong>🆘 Need Help?</strong> Join our community for support and updates:<br>
+  <a href="https://t.me/lkteammm" target="_blank" class="btn" style="margin-top: 10px;">
+    💬 Join Support Channel
+  </a>
+</div>
+
+<a href="#" class="floating-btn" onclick="scrollToTop(); return false;" title="Back to top">
+  ⬆️
+</a>
+
+<script>
+// Floating particles animation
+function createParticles() {
+  const particlesContainer = document.getElementById('particles');
+  const particleCount = window.innerWidth < 768 ? 15 : 30;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 20 + 's';
+    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+    particlesContainer.appendChild(particle);
+  }
+}
+
+// Progress bar
+function updateProgressBar() {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  document.getElementById('progressBar').style.width = scrolled + '%';
+}
+
+// Smooth scroll to top
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+// Intersection Observer for animations
+function setupIntersectionObserver() {
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+}
+
+// Initialize animations
+window.addEventListener('load', () => {
+  createParticles();
+  setupIntersectionObserver();
+});
+
+// Update progress bar on scroll
+window.addEventListener('scroll', updateProgressBar);
+
+// Add click ripple effect to buttons
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    const ripple = document.createElement('span');
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+    
+    ripple.style.cssText = `
+      position: absolute;
+      width: ${size}px;
+      height: ${size}px;
+      left: ${x}px;
+      top: ${y}px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple 0.6s ease-out;
+      pointer-events: none;
+    `;
+    
+    this.style.position = 'relative';
+    this.style.overflow = 'hidden';
+    this.appendChild(ripple);
+    
+    setTimeout(() => ripple.remove(), 600);
+  });
+});
+
+// Add ripple animation
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes ripple {
+    to {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
+
+// Performance optimization for mobile
+if (window.innerWidth < 768) {
+  // Reduce particle count on mobile
+  document.documentElement.style.setProperty('--particle-count', '10');
+}
+</script>
+
+</body>
+</html>
